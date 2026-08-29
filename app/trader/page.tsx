@@ -31,6 +31,9 @@ export default function TraderPage() {
   const [timeSales, setTimeSales] = useState<TimeSale[]>([]);
   const [candles, setCandles] = useState<Candle[]>([]);
   const [newCandle, setNewCandle] = useState<Candle | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [chatSubject, setChatSubject] = useState('');
+  const [chatBody, setChatBody] = useState('');
   const [symbol, setSymbol] = useState('ATML');
   const [clock, setClock] = useState('');
   const [orderSymbol, setOrderSymbol] = useState('ATML');
@@ -43,6 +46,11 @@ export default function TraderPage() {
     { symbol: 'DEMO', shares: 5000, last: 12.250, net: -0.250, pctChg: -2.00, value: 61250.00 },
     { symbol: 'XYZ', shares: 2000, last: 3.500, net: +0.050, pctChg: +1.45, value: 7000.00 },
   ]);
+
+  interface Message {
+    id: number; author: string; subject: string;
+    body: string; date: string; time: string; symbol: string;
+  }
 
   const prevPriceRef = useRef<number>(0);
 
@@ -69,6 +77,7 @@ export default function TraderPage() {
       setIndices(data.indices || { dow: 11378.92, nasdaq: 3617.96, sp500: 1371.22 });
       setLevelII(data.levelII || { bids: [], asks: [] });
       setCandles(data.candleHistory || []);
+      if (data.messages) setMessages(data.messages);
       if (data.stocks?.ATML) {
         prevPriceRef.current = data.stocks.ATML.price;
         setLimitPrice(data.stocks.ATML.ask?.toFixed(3) || '0.380');
@@ -88,12 +97,26 @@ export default function TraderPage() {
       setNewCandle(candle);
     });
 
+    sock.on('new_message', (msg: Message) => {
+      setMessages(prev => [msg, ...prev]);
+    });
+
     return () => {
       sock.off('init');
       sock.off('tick');
       sock.off('new_candle');
+      sock.off('new_message');
     };
   }, []);
+
+  const handleChatPost = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!chatSubject.trim() || !chatBody.trim()) return;
+    const sock = getSocket();
+    sock.emit('post_message', { subject: chatSubject, body: chatBody, symbol });
+    setChatSubject('');
+    setChatBody('');
+  };
 
   const atml = stocks[symbol] || { price: 0.375, open: 0.250, high: 0.395, low: 0.250, prevClose: 0.250, volume: 1033100, bid: 0.375, ask: 0.380 };
   const net = atml.price - atml.prevClose;
@@ -379,6 +402,40 @@ export default function TraderPage() {
                   </div>
                 ))}
               </div>
+            </div>
+          </Win98Window>
+
+          {/* Yahoo! Finance Chat */}
+          <Win98Window id="chat-win" title="Yahoo! Finance Chat" icon="💬" defaultX={328} defaultY={242} defaultWidth={390} defaultHeight={166} zIndex={12} scrollable={false}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', background: '#c0c0c0' }}>
+              <div style={{ flex: 1, overflowY: 'auto', padding: '2px 4px', background: 'white', borderBottom: '1px solid #808080', fontSize: 10 }}>
+                {messages.slice(0, 10).map((msg) => (
+                  <div key={msg.id} style={{ borderBottom: '1px solid #eee', padding: '2px 0' }}>
+                    <span style={{ color: '#000080', fontWeight: 'bold' }}>{msg.author}</span>: 
+                    <span style={{ fontWeight: 'bold', marginLeft: 4 }}>{msg.subject}</span> - 
+                    <span style={{ color: '#555', marginLeft: 4 }}>{msg.body}</span>
+                  </div>
+                ))}
+              </div>
+              <form onSubmit={handleChatPost} style={{ padding: 4, display: 'flex', flexDirection: 'column', gap: 2, background: '#c0c0c0' }}>
+                <div style={{ display: 'flex', gap: 4 }}>
+                  <input
+                    className="input98"
+                    value={chatSubject}
+                    onChange={e => setChatSubject(e.target.value)}
+                    placeholder="Subject..."
+                    style={{ flex: 1, height: 18 }}
+                  />
+                  <button type="submit" className="btn98" style={{ minWidth: 50, padding: '0 4px', height: 18 }}>Post</button>
+                </div>
+                <input
+                  className="input98"
+                  value={chatBody}
+                  onChange={e => setChatBody(e.target.value)}
+                  placeholder="Type message here..."
+                  style={{ width: '100%', height: 18 }}
+                />
+              </form>
             </div>
           </Win98Window>
 
