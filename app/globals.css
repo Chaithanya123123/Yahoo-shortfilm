@@ -1,0 +1,757 @@
+/* ─── Reset ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Win98 Palette Variables ────────────────────────────────────── */
+:root {
+  --bg: #c0c0c0;
+  --border-light: #ffffff;
+  --border-dark: #808080;
+  --border-darker: #404040;
+  --titlebar-active: linear-gradient(to right, #000080, #1084d0);
+  --titlebar-inactive: #808080;
+  --text: #000000;
+  --link: #0000ee;
+  --link-visited: #551a8b;
+  --chart-bg: #000000;
+  --green: #00cc00;
+  --red: #ff3333;
+  --yellow: #ffff00;
+  --yahoo-red: #cc0000;
+  --yahoo-blue: #003399;
+  --nav-blue: #003380;
+}
+
+/* ─── Global body ─────────────────────────────────────────────────── */
+body {
+  background: var(--bg);
+  font-family: 'MS Sans Serif', 'Tahoma', 'Arial', sans-serif;
+  font-size: 11px;
+  color: var(--text);
+  cursor: default;
+  user-select: none;
+}
+
+/* ─── Win98 Raised / Sunken borders ──────────────────────────────── */
+.raised {
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+}
+.sunken {
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+.double-raised {
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  outline: 1px solid #808080;
+}
+
+/* ─── Win98 Button ───────────────────────────────────────────────── */
+.btn98 {
+  background: var(--bg);
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  padding: 2px 8px;
+  font-family: 'MS Sans Serif', 'Tahoma', sans-serif;
+  font-size: 11px;
+  cursor: default;
+  min-width: 75px;
+  text-align: center;
+}
+.btn98:active {
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  padding: 3px 7px 1px 9px;
+}
+
+/* ─── Win98 Input ────────────────────────────────────────────────── */
+.input98 {
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  background: white;
+  padding: 1px 3px;
+  font-family: 'MS Sans Serif', 'Tahoma', sans-serif;
+  font-size: 11px;
+  color: #000;
+}
+
+/* ─── Win98 Window Title Bar ─────────────────────────────────────── */
+.titlebar {
+  background: var(--titlebar-active);
+  color: white;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 3px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: move;
+  user-select: none;
+  gap: 4px;
+}
+.titlebar-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.titlebar-title { flex: 1; font-size: 11px; }
+.titlebar-btns { display: flex; gap: 2px; }
+.titlebar-btn {
+  width: 16px; height: 14px;
+  background: var(--bg);
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #404040;
+  border-bottom: 1px solid #404040;
+  font-size: 9px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: default;
+  font-family: 'Marlett', 'Wingdings', monospace;
+  line-height: 1;
+}
+.titlebar-btn:active {
+  border-top: 1px solid #404040;
+  border-left: 1px solid #404040;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+}
+
+/* ─── Win98 Window ───────────────────────────────────────────────── */
+.win98-window {
+  background: var(--bg);
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  box-shadow: 1px 1px 0 #808080;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ─── Win98 Menu Bar ─────────────────────────────────────────────── */
+.menubar {
+  display: flex;
+  background: var(--bg);
+  padding: 1px 2px;
+  gap: 2px;
+  border-bottom: 1px solid #808080;
+}
+.menubar-item {
+  padding: 2px 6px;
+  font-size: 11px;
+  cursor: default;
+}
+.menubar-item:hover {
+  background: #000080;
+  color: white;
+}
+
+/* ─── Scrollbar styling (WebKit) ─────────────────────────────────── */
+::-webkit-scrollbar { width: 16px; height: 16px; }
+::-webkit-scrollbar-track { background: #c0c0c0; }
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+}
+::-webkit-scrollbar-button {
+  background: #c0c0c0;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  width: 16px; height: 16px;
+}
+::-webkit-scrollbar-corner { background: #c0c0c0; }
+
+/* ─── Netscape / IE Browser Chrome ──────────────────────────────── */
+.browser-chrome {
+  background: #c0c0c0;
+  border: 3px outset #c0c0c0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'MS Sans Serif', 'Arial', sans-serif;
+  font-size: 11px;
+}
+.browser-titlebar {
+  background: var(--titlebar-active);
+  color: white;
+  padding: 3px 6px;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.browser-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 3px 4px;
+  gap: 2px;
+  border-bottom: 1px solid #808080;
+  background: #c0c0c0;
+  flex-wrap: wrap;
+}
+.browser-toolbar-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 4px;
+  font-size: 9px;
+  cursor: default;
+  min-width: 36px;
+  gap: 1px;
+}
+.browser-toolbar-btn:hover { background: rgba(0,0,0,0.05); }
+.browser-toolbar-icon { font-size: 18px; line-height: 1; }
+.browser-toolbar-sep {
+  width: 1px; background: #808080;
+  height: 30px; margin: 0 2px;
+  border-left: 1px solid #fff;
+}
+.browser-location-bar {
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  gap: 4px;
+  border-bottom: 1px solid #808080;
+  background: #c0c0c0;
+}
+.browser-location-bar label { font-size: 11px; white-space: nowrap; }
+.browser-location-input {
+  flex: 1;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  background: white;
+  padding: 1px 4px;
+  font-size: 11px;
+  font-family: 'Arial', sans-serif;
+}
+.browser-quicklinks {
+  display: flex;
+  padding: 2px 4px;
+  gap: 2px;
+  border-bottom: 1px solid #808080;
+  background: #c0c0c0;
+  flex-wrap: wrap;
+}
+.browser-quicklink {
+  padding: 1px 8px;
+  font-size: 10px;
+  border: 1px outset #c0c0c0;
+  cursor: default;
+  white-space: nowrap;
+}
+.browser-quicklink:active { border: 1px inset #c0c0c0; }
+.browser-statusbar {
+  border-top: 2px solid #808080;
+  padding: 1px 4px;
+  font-size: 10px;
+  background: #c0c0c0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ─── Homepage Styles ────────────────────────────────────────────── */
+.yahoo-body {
+  background: #c0c0c0;
+  color: #000000;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 13px;
+  padding: 8px;
+  min-height: 400px;
+}
+.yahoo-logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #808080;
+  margin-bottom: 8px;
+}
+.yahoo-logo {
+  font-family: 'Times New Roman', serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--yahoo-red);
+  letter-spacing: -2px;
+  text-shadow: 2px 2px #880000;
+}
+.yahoo-search-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 8px 0;
+}
+.yahoo-search-input {
+  border: 2px inset #808080;
+  padding: 2px 4px;
+  font-size: 13px;
+  width: 200px;
+  font-family: 'Times New Roman', serif;
+  background: white;
+}
+.yahoo-search-btn {
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  padding: 2px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'Times New Roman', serif;
+}
+.yahoo-dir-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 20px;
+  margin-top: 8px;
+}
+.yahoo-dir-category { margin-bottom: 6px; }
+.yahoo-dir-category h3 {
+  font-family: 'Times New Roman', serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--yahoo-blue);
+  margin-bottom: 2px;
+  display: flex; align-items: center; gap: 4px;
+}
+.yahoo-dir-category h3 a { color: var(--yahoo-blue); text-decoration: none; }
+.yahoo-dir-category h3 a:hover { text-decoration: underline; }
+.xtra-badge {
+  font-size: 9px; color: red; font-weight: bold;
+  border: 1px solid red; padding: 0 2px;
+  font-family: 'Arial', sans-serif;
+}
+.yahoo-dir-links {
+  font-size: 11px;
+  color: #000;
+  font-family: 'Times New Roman', serif;
+}
+.yahoo-dir-links a { color: var(--link); font-size: 11px; }
+.yahoo-dir-links a:hover { color: red; }
+.yahoo-news-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  background: white;
+  border: 1px solid #808080;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+.cnet-badge {
+  background: red; color: white;
+  font-size: 9px; font-weight: bold;
+  padding: 1px 4px; border-radius: 2px;
+  font-family: 'Arial', sans-serif;
+}
+.yahoo-bottom-links {
+  text-align: center;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #808080;
+  font-size: 11px;
+}
+.yahoo-bottom-links a { color: var(--link); }
+
+/* ─── Trader page ────────────────────────────────────────────────── */
+.trader-desktop {
+  width: 100vw;
+  min-height: 100vh;
+  background: #008080;
+  position: relative;
+  overflow: hidden;
+  font-family: 'MS Sans Serif', 'Tahoma', sans-serif;
+  font-size: 11px;
+}
+.trader-main-window {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 28px;
+  background: var(--bg);
+  border-bottom: 2px solid #808080;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.market-ticker-bar {
+  background: #000000;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.market-ticker-bar .index-item { display: flex; align-items: center; gap: 4px; }
+.market-ticker-bar .index-name { color: #00ff00; }
+.market-ticker-bar .index-val { color: #00ff00; font-weight: bold; }
+.market-ticker-bar .index-chg { color: #00ff00; }
+.market-ticker-bar .market-time { color: #88ff88; margin-left: auto; }
+.subwindow-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── Chart styles ───────────────────────────────────────────────── */
+.chart-container {
+  background: black;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Quote panel ────────────────────────────────────────────────── */
+.quote-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  font-size: 11px;
+}
+.quote-row { display: flex; justify-content: space-between; padding: 1px 4px; }
+.quote-label { color: #000; }
+.quote-val-green { color: #00aa00; font-weight: bold; }
+.quote-val-red { color: #cc0000; font-weight: bold; }
+
+/* ─── Level II ───────────────────────────────────────────────────── */
+.level2-table {
+  width: 100%; border-collapse: collapse; font-size: 10px;
+  font-family: 'Courier New', monospace;
+}
+.level2-table th {
+  background: #000080; color: white;
+  padding: 1px 4px; text-align: center; font-size: 10px;
+}
+.level2-table td { padding: 1px 4px; text-align: center; border-bottom: 1px solid #e0e0e0; }
+.l2-bid { color: #00aa00; font-weight: bold; }
+.l2-ask { color: #cc0000; font-weight: bold; }
+.l2-flash-green { animation: flashGreen 0.3s ease; }
+.l2-flash-red { animation: flashRed 0.3s ease; }
+@keyframes flashGreen { 0%,100% { background: transparent; } 50% { background: rgba(0,200,0,0.3); } }
+@keyframes flashRed { 0%,100% { background: transparent; } 50% { background: rgba(200,0,0,0.3); } }
+
+/* ─── Time & Sales ───────────────────────────────────────────────── */
+.ts-table {
+  width: 100%; border-collapse: collapse; font-size: 10px;
+  font-family: 'Courier New', monospace;
+}
+.ts-table th {
+  background: #000080; color: white; padding: 1px 4px; text-align: center;
+}
+.ts-table td { padding: 1px 4px; border-bottom: 1px solid #e8e8e8; }
+.ts-up { color: #00aa00; font-weight: bold; }
+.ts-down { color: #cc0000; font-weight: bold; }
+
+/* ─── Taskbar ─────────────────────────────────────────────────────── */
+.taskbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 28px;
+  background: var(--bg);
+  border-top: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 4px;
+  z-index: 9999;
+}
+.start-btn {
+  display: flex; align-items: center; gap: 4px;
+  padding: 2px 6px;
+  font-size: 11px; font-weight: bold;
+  background: var(--bg);
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  cursor: default; min-width: 54px;
+}
+.taskbar-task {
+  padding: 2px 8px;
+  font-size: 11px;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  cursor: default;
+}
+.taskbar-clock {
+  margin-left: auto;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  padding: 2px 6px;
+  font-size: 11px;
+  min-width: 60px; text-align: center;
+}
+
+/* ─── Toolbar icons row ──────────────────────────────────────────── */
+.toolbar-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 2px 4px;
+  background: var(--bg);
+  border-bottom: 2px solid #808080;
+}
+.toolbar-btn {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 2px 6px; gap: 1px; font-size: 10px; cursor: default;
+  min-width: 40px;
+}
+.toolbar-btn:hover { background: rgba(0,0,0,0.05); }
+.toolbar-sep { width: 1px; background: #808080; height: 28px; border-left: 1px solid #fff; margin: 0 2px; }
+
+/* ─── Order Entry ────────────────────────────────────────────────── */
+.order-row { display: flex; align-items: center; gap: 4px; margin-bottom: 3px; font-size: 11px; }
+.order-label { min-width: 70px; text-align: right; }
+.order-select {
+  border: 2px inset #808080; background: white; font-size: 11px;
+  padding: 1px 2px; font-family: 'MS Sans Serif', sans-serif;
+}
+.btn-buy { background: #00aa00; color: white; border: 2px outset #00cc00; padding: 4px 16px; font-size: 12px; font-weight: bold; cursor: pointer; }
+.btn-sell { background: #cc0000; color: white; border: 2px outset #ee0000; padding: 4px 16px; font-size: 12px; font-weight: bold; cursor: pointer; }
+.btn-clear { background: var(--bg); border: 2px outset #c0c0c0; padding: 4px 12px; font-size: 11px; cursor: pointer; }
+
+/* ─── Portfolio ──────────────────────────────────────────────────── */
+.port-table { width: 100%; border-collapse: collapse; font-size: 10px; }
+.port-table th { background: #000080; color: white; padding: 1px 3px; text-align: right; font-size: 10px; }
+.port-table th:first-child { text-align: left; }
+.port-table td { padding: 1px 3px; border-bottom: 1px solid #e0e0e0; text-align: right; font-size: 10px; }
+.port-table td:first-child { text-align: left; font-weight: bold; }
+.port-footer { padding: 4px; font-size: 10px; border-top: 1px solid #808080; margin-top: 2px; }
+.port-footer-row { display: flex; justify-content: space-between; padding: 1px 0; }
+
+/* ─── Yahoo Finance Page ─────────────────────────────────────────── */
+.finance-body {
+  background: white;
+  color: #000;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-size: 12px;
+  min-height: 100vh;
+}
+.finance-header {
+  background: white;
+  padding: 6px 12px;
+  border-bottom: 2px solid var(--yahoo-blue);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.finance-logo-yahoo {
+  font-family: 'Times New Roman', serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--yahoo-red);
+  letter-spacing: -1px;
+}
+.finance-logo-finance {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--yahoo-blue);
+  font-family: 'Arial', sans-serif;
+}
+.finance-nav {
+  background: var(--yahoo-blue);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.finance-nav a {
+  color: white;
+  padding: 4px 10px;
+  font-size: 12px;
+  text-decoration: none;
+  border-right: 1px solid rgba(255,255,255,0.3);
+  display: block;
+}
+.finance-nav a:hover { background: rgba(255,255,255,0.2); }
+.finance-nav a.active { background: rgba(255,255,255,0.25); font-weight: bold; }
+.finance-layout {
+  display: grid;
+  grid-template-columns: 185px 1fr 200px;
+  gap: 0;
+}
+.finance-sidebar {
+  border-right: 1px solid #c0c0c0;
+  padding: 8px;
+  background: #f4f4f4;
+  font-size: 12px;
+}
+.finance-sidebar-nav a {
+  display: block;
+  padding: 2px 0 2px 12px;
+  color: var(--link);
+  text-decoration: none;
+  font-size: 12px;
+}
+.finance-sidebar-nav a:hover { text-decoration: underline; }
+.finance-sidebar-nav .active { font-weight: bold; color: var(--yahoo-blue); }
+.finance-sidebar h4 {
+  color: var(--yahoo-blue);
+  font-size: 12px;
+  margin: 6px 0 3px;
+  border-bottom: 1px solid var(--yahoo-blue);
+}
+.finance-main { padding: 8px 12px; }
+.finance-right { padding: 8px; border-left: 1px solid #c0c0c0; }
+.board-header {
+  background: var(--yahoo-blue);
+  color: white;
+  padding: 5px 8px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+.breadcrumb { font-size: 11px; margin-bottom: 6px; color: #666; }
+.breadcrumb a { color: var(--link); }
+.stock-summary-row {
+  display: flex; align-items: baseline; gap: 12px;
+  margin-bottom: 8px; font-size: 12px;
+  padding-bottom: 4px; border-bottom: 1px solid #ccc;
+}
+.board-tabs { display: flex; gap: 0; margin-bottom: 8px; border-bottom: 2px solid var(--yahoo-blue); }
+.board-tab {
+  padding: 3px 12px; border: 1px solid #aaa;
+  border-bottom: none; background: #e0e0e0;
+  font-size: 12px; cursor: pointer;
+}
+.board-tab.active { background: white; font-weight: bold; border-bottom: 2px solid white; margin-bottom: -2px; }
+.board-count { font-size: 11px; color: #666; margin-bottom: 4px; }
+.msg-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.msg-table th {
+  background: var(--yahoo-blue); color: white;
+  padding: 3px 6px; text-align: left; font-size: 12px;
+}
+.msg-table td { padding: 3px 6px; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+.msg-table tr:hover td { background: #f0f0ff; }
+.msg-table .msg-num { width: 30px; text-align: right; color: #666; }
+.msg-table .msg-author { width: 130px; font-weight: bold; color: #000080; }
+.msg-table .msg-subject a { color: var(--link); text-decoration: none; font-size: 12px; }
+.msg-table .msg-subject a:hover { text-decoration: underline; }
+.msg-table .msg-date { white-space: nowrap; font-size: 11px; color: #666; text-align: right; }
+.quote-widget {
+  border: 2px solid var(--yahoo-blue);
+  padding: 6px;
+  background: white;
+  margin-bottom: 8px;
+}
+.quote-widget-symbol { font-size: 14px; font-weight: bold; color: var(--yahoo-blue); }
+.quote-widget-company { font-size: 11px; color: #666; margin-bottom: 4px; }
+.quote-widget-price { font-size: 28px; font-weight: bold; color: #000; }
+.quote-widget-change { font-size: 14px; color: #00aa00; font-weight: bold; }
+.quote-widget-stat { font-size: 11px; display: flex; justify-content: space-between; padding: 1px 0; border-bottom: 1px solid #e8e8e8; }
+.related-links { border: 1px solid #c0c0c0; padding: 6px; margin-top: 8px; }
+.related-links h4 { background: #6699cc; color: white; padding: 2px 4px; font-size: 11px; margin: -6px -6px 4px -6px; }
+.related-links a { display: block; color: var(--link); font-size: 11px; padding: 1px 0; }
+.etrade-banner {
+  border: 2px solid #000080;
+  padding: 8px;
+  text-align: center;
+  margin-top: 8px;
+  background: white;
+  cursor: pointer;
+}
+.etrade-banner h4 { font-size: 13px; font-weight: bold; color: #000080; }
+.etrade-click-btn {
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 4px auto;
+  display: block;
+}
+.etrade-logo { font-size: 18px; font-weight: 900; color: #003399; margin-top: 4px; }
+.new-msg-form {
+  background: #f8f8f8;
+  border: 1px solid #c0c0c0;
+  padding: 8px;
+  margin-top: 12px;
+}
+.new-msg-form h4 { color: var(--yahoo-blue); margin-bottom: 6px; font-size: 13px; }
+.new-msg-input {
+  width: 100%; border: 1px inset #808080; padding: 3px;
+  font-size: 12px; margin-bottom: 4px; background: white;
+}
+.new-msg-textarea {
+  width: 100%; border: 1px inset #808080; padding: 3px;
+  font-size: 12px; height: 60px; resize: vertical;
+  font-family: 'Arial', sans-serif; margin-bottom: 4px;
+}
+.post-btn {
+  background: var(--yahoo-blue); color: white;
+  border: 2px outset var(--yahoo-blue);
+  padding: 3px 16px; font-size: 12px; cursor: pointer;
+}
+.search-quotes-form { display: flex; gap: 4px; margin-bottom: 8px; }
+.search-quotes-input {
+  border: 2px inset #808080; padding: 2px; font-size: 12px; flex: 1; background: white;
+}
+.search-quotes-btn {
+  background: var(--bg); border: 2px outset #c0c0c0;
+  padding: 2px 8px; font-size: 11px; cursor: pointer;
+}
+.sidebar-email-ad {
+  border: 2px solid var(--yahoo-red);
+  padding: 6px; text-align: center; margin-top: 10px;
+}
+.sidebar-email-ad .y-logo { font-family: 'Times New Roman', serif; font-size: 22px; font-weight: 900; color: var(--yahoo-red); }
+.signup-btn {
+  background: var(--bg); border: 2px outset #c0c0c0;
+  padding: 2px 8px; font-size: 11px; cursor: pointer;
+  display: flex; align-items: center; gap: 3px;
+  margin: 4px auto;
+}
+.pagination { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+.pagination a { color: var(--link); }
+
+/* ─── Utility ────────────────────────────────────────────────────── */
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.items-center { align-items: center; }
+.gap-2 { gap: 8px; }
+.gap-1 { gap: 4px; }
+.p-1 { padding: 4px; }
+.p-2 { padding: 8px; }
+.bold { font-weight: bold; }
+.text-green { color: #00aa00; }
+.text-red { color: #cc0000; }
+.text-xs { font-size: 10px; }
+.overflow-auto { overflow: auto; }
+.overflow-hidden { overflow: hidden; }
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.new-msg-flash {
+  animation: newMsgFlash 1s ease-out;
+}
+@keyframes newMsgFlash {
+  0% { background: #ffffcc; }
+  100% { background: transparent; }
+}
