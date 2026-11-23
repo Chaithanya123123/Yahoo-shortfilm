@@ -151,17 +151,27 @@ app.prepare().then(() => {
   io.on('connection', (socket) => {
     console.log('Client connected:', socket.id);
 
-    // Send initial data
-    socket.emit('init', {
+    const sendInit = () => socket.emit('init', {
       stocks,
       candleHistory,
       messages,
       indices: marketIndices,
       levelII: generateLevelII(),
     });
+    sendInit();
+    socket.on('request_init', sendInit);
 
     // Handle chat/message board post
-    socket.on('post_message', ({ subject, body, symbol }) => {
+    let lastPost = 0;
+    socket.on('post_message', (payload) => {
+      // Client input is untrusted: a malformed message must not crash the server.
+      const text = (value, max) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
+      const subject = text(payload?.subject, 120);
+      const body = text(payload?.body, 2000);
+      const symbol = text(payload?.symbol, 8).toUpperCase();
+      if (!subject && !body) return;
+      if (Date.now() - lastPost < 500) return;
+      lastPost = Date.now();
       const retroName = retroNames[Math.floor(Math.random() * retroNames.length)];
       const now = new Date();
       const dateStr = `${now.getMonth() + 1}/${now.getDate()}`;
@@ -217,6 +227,7 @@ app.prepare().then(() => {
       volume: Math.floor(10000 + Math.random() * 50000),
     };
     candleHistory.push(newCandle);
+    if (candleHistory.length > 500) candleHistory.shift();
     io.emit('new_candle', newCandle);
   }, 5000);
 

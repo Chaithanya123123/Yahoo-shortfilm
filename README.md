@@ -25,8 +25,7 @@ npm run dev
 
 1. Push this folder to a GitHub repo
 2. Go to [railway.app](https://railway.app) → New Project → Deploy from GitHub
-3. Set environment variable: `NEXT_PUBLIC_SOCKET_URL=https://your-app.up.railway.app`
-4. Railway auto-builds and deploys
+3. Railway auto-builds and deploys. No socket URL is needed, because the page and socket share one server.
 
 ## Tech Stack
 - Next.js 15, React 18

@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import Win98Window from '@/components/Win98Window';
-import { getSocket } from '@/lib/socket';
+import { getSocket, requestInit } from '@/lib/socket';
 
 const CandlestickChart = dynamic(() => import('@/components/CandlestickChart'), { ssr: false });
 
@@ -100,6 +100,8 @@ export default function TraderPage() {
     sock.on('new_message', (msg: Message) => {
       setMessages(prev => [msg, ...prev]);
     });
+
+    requestInit(sock);
 
     return () => {
       sock.off('init');

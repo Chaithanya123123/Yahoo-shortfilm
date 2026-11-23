@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { getSocket } from '@/lib/socket';
+import { getSocket, requestInit } from '@/lib/socket';
 
 interface Message {
   id: number; author: string; subject: string;
@@ -51,6 +51,8 @@ export default function MessageBoardsPage() {
         setNewIds(prev => { const n = new Set(prev); n.delete(msg.id); return n; });
       }, 2000);
     });
+
+    requestInit(sock);
 
     return () => {
       sock.off('init');
